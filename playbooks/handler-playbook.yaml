@@ -1,0 +1,16 @@
+- name: Notify and handler
+  hosts: k8s
+  tasks:
+    - name: Create_file
+      ansible.builtin.command: touch /tmp/create_file.txt
+      changed_when: false
+      notify:
+        - Create_another_file
+        - Clean_file_1
+  handlers:
+    - name: Create_another_file
+      changed_when: false
+      ansible.builtin.command: touch /tmp/create_file2.txt
+    - name: Clean_file_1
+      changed_when: false
+      ansible.builtin.command: rm /tmp/create_file.txt

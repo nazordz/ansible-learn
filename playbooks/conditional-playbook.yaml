@@ -1,0 +1,7 @@
+- name: Ansible conditional
+  hosts: k8s
+  tasks:
+    - name: Execute command 'ls'
+      ansible.builtin.command: ls
+      changed_when: false
+      when: inventory_hostname == "host1"

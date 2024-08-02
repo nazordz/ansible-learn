@@ -1,0 +1,24 @@
+- name: Install Nginx Server
+  hosts: k8s
+  become: true
+  tasks:
+    - name: Upgrade all apt packages
+      ansible.builtin.apt:
+        update_cache: true
+        force_apt_get: true
+        upgrade: dist
+      become: true
+    - name: Install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+    - name: Run nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+    - name: Create content
+      ansible.builtin.copy:
+        owner: vagrant
+        mode: '644'
+        content: "Ini hasil dari ansible brader"
+        dest: /var/www/html/index.html

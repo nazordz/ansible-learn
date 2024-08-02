@@ -1,0 +1,8 @@
+- name: Learn variable
+  hosts: k8s
+  vars:
+    filename: ansible-vars.txt
+  tasks:
+    - name: Create file using variable
+      ansible.builtin.command: "touch /tmp/{{ filename }}"
+      changed_when: false
